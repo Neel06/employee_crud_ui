@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, computed, inject, signal, input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CreateEmployee } from '../../models/create-employee';
 import { EmployeeService } from '../../services/employee';
@@ -6,7 +6,7 @@ import { EmployeeForm } from '../employee-form/employee-form';
 import { Observable, finalize } from 'rxjs';
 import { Employee } from '../../models/Employee';
 import { ApiErrorService } from '../../services/api-error';
-import { EmployeeQuery, PageResult, SortDirection, EmployeeSortBy } from '../../models/employee-pagination';
+import { EmployeeQuery, PagedResult, SortDirection, EmployeeSortBy } from '../../models/employee-pagination';
 
 @Component({
   selector: 'app-employee-list',
@@ -67,6 +67,8 @@ export class EmployeeList implements OnInit {
 
   showingTo = computed(() => Math.min(this.pageNumber() * this.pageSize(), this.totalCount()) );
 
+  canWrite = input(false);
+  
   ngOnInit(): void {
     this.loadEmployees();
   }
@@ -189,6 +191,7 @@ export class EmployeeList implements OnInit {
 
   // DELETE: Remove employee.
   deleteEmployee(employee: Employee): void {
+
     if (this.busy()) {
       return;
     }

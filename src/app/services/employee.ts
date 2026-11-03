@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Employee } from '../models/Employee';
 import { CreateEmployee } from '../models/create-employee';
 import { environment } from '../../environments/environment';
-import { EmployeeQuery, PageResult } from '../models/employee-pagination';
+import { EmployeeQuery, PagedResult } from '../models/employee-pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +32,8 @@ export class EmployeeService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  getPagedEmployees(query: EmployeeQuery): Observable<PageResult<Employee>> {
-    return this.http.get<PageResult<Employee>>(`${this.apiUrl}/paged`, {
+  getPagedEmployees(query: EmployeeQuery): Observable<PagedResult<Employee>> {
+    return this.http.get<PagedResult<Employee>>(`${this.apiUrl}/paged`, {
       params: {
         pageNumber: query.pageNumber,
         pageSize: query.pageSize,

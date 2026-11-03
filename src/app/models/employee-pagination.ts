@@ -9,7 +9,7 @@ export interface EmployeeQuery {
     sortDirection: SortDirection;
 }
 
-export interface PageResult<T> {
+export interface PagedResult<T> {
     items: T[],
     totalCount: number,
     pageNumber: number;

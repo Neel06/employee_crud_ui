@@ -23,7 +23,14 @@ export class ApiErrorService {
 
       return validationMessage ?? 'Please check the employee details.'
     }
+    if (error.status === 401) {
+      return 'Your session has expired. Please sign in again.';
+    }
 
+    if (error.status === 403) {
+      return 'You do not have permission to perform this action.';
+    }
+    
     //Business Conflict
     if (error.status === 409) {
       return 'This email is already registered.';
